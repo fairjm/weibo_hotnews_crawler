@@ -1,13 +1,15 @@
-package com.weibohot.crawler;
+package com.weibohot.crawler.entity;
 
-public class HotNews {
+public class HotNewsTitle {
 
     public final String tagName;
     public final String url;
+    public final String type;
 
-    public HotNews(final String tageName, final String url) {
+    public HotNewsTitle(final String tageName, final String url, final String type) {
         this.tagName = tageName;
         this.url = url;
+        this.type = type;
     }
 
     @Override
@@ -15,6 +17,7 @@ public class HotNews {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.tagName == null) ? 0 : this.tagName.hashCode());
+        result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
         result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
         return result;
     }
@@ -27,11 +30,16 @@ public class HotNews {
             return false;
         if (this.getClass() != obj.getClass())
             return false;
-        final HotNews other = (HotNews) obj;
+        final HotNewsTitle other = (HotNewsTitle) obj;
         if (this.tagName == null) {
             if (other.tagName != null)
                 return false;
         } else if (!this.tagName.equals(other.tagName))
+            return false;
+        if (this.type == null) {
+            if (other.type != null)
+                return false;
+        } else if (!this.type.equals(other.type))
             return false;
         if (this.url == null) {
             if (other.url != null)
@@ -43,7 +51,7 @@ public class HotNews {
 
     @Override
     public String toString() {
-        return "HotNews [tagName=" + this.tagName + ", url=" + this.url + "]";
+        return "HotNewsTitle [tagName=" + this.tagName + ", url=" + this.url + ", type=" + this.type + "]";
     }
 
 }

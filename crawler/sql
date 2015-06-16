@@ -1,0 +1,27 @@
+CREATE DATABASE `weibo_hot_news` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+CREATE TABLE `category` (
+  `categoryid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `categoryname` varchar(45) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastupdated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`categoryid`),
+  UNIQUE KEY `categoryname_UNIQUE` (`categoryname`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `hotnews` (
+  `newsid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `intro` varchar(1000) DEFAULT NULL,
+  `readnum` bigint(20) unsigned NOT NULL COMMENT '阅读数',
+  `discussionnum` bigint(20) unsigned NOT NULL COMMENT '讨论数量',
+  `focusnum` int(11) unsigned NOT NULL COMMENT '关注的用户数',
+  `categoryid` int(10) unsigned NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastupdated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`newsid`),
+  UNIQUE KEY `title_UNIQUE` (`title`),
+  KEY `category_news_idx` (`categoryid`),
+  KEY `created_idx` (`created`),
+  CONSTRAINT `category_news` FOREIGN KEY (`categoryid`) REFERENCES `category` (`categoryid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
